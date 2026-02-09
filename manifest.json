@@ -1,0 +1,21 @@
+{
+  "name": "EdTech Platform",
+  "short_name": "EdTech",
+  "description": "Complete education platform with live classes, mock tests, and courses",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4CAF50",
+  "icons": [
+    {
+      "src": "logo192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "logo512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
