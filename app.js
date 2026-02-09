@@ -10,10 +10,10 @@ const AppState = {
 function initApp() {
     // Check Authentication State
     initAuth();
-    
+
     // Handle Navigation
     window.addEventListener('hashchange', handleRoute);
-    
+
     // Initial Route
     handleRoute();
 }
@@ -22,12 +22,12 @@ function initApp() {
 function handleRoute() {
     const hash = window.location.hash.slice(1) || 'home';
     const content = document.getElementById('main-content');
-    
+
     // Update AppState
     AppState.currentView = hash;
-    
+
     // Hide all sections first (if any manual toggling is needed, though we primarily replace innerHTML)
-    
+
     // Route handler
     if (hash === 'home') {
         renderHomePage();
@@ -36,15 +36,15 @@ function handleRoute() {
     } else if (hash === 'student-dashboard') {
         // Auth check before rendering
         if (AppState.currentUser) {
-             renderStudentDashboard();
+            renderStudentDashboard();
         } else {
-             window.location.hash = 'login';
+            window.location.hash = 'login';
         }
     } else if (hash === 'teacher-dashboard') {
         if (AppState.currentUser) {  // Ideally check for teacher role too
-             renderTeacherDashboard();
+            renderTeacherDashboard();
         } else {
-             window.location.hash = 'login';
+            window.location.hash = 'login';
         }
     } else if (hash === 'courses') {
         renderCoursesPage();
@@ -55,7 +55,7 @@ function handleRoute() {
         if (AppState.currentUser) {
             // Check if function exists before calling
             if (typeof renderLiveClassesPage === 'function') {
-                renderLiveClassesPage(); 
+                renderLiveClassesPage();
             } else {
                 content.innerHTML = '<h2>Live Classes Module Loading...</h2>';
             }
@@ -65,50 +65,50 @@ function handleRoute() {
     } else if (hash.startsWith('live-class/')) {
         const classId = hash.split('/')[1];
         if (AppState.currentUser) {
-             if (typeof joinLiveClassSession === 'function') {
+            if (typeof joinLiveClassSession === 'function') {
                 joinLiveClassSession(classId);
-             } else {
-                 content.innerHTML = '<h2>Live Class Session Loading...</h2>';
-             }
+            } else {
+                content.innerHTML = '<h2>Live Class Session Loading...</h2>';
+            }
         } else {
             window.location.hash = 'login';
         }
     } else if (hash === 'mock-tests') {
-         if (AppState.currentUser) {
+        if (AppState.currentUser) {
             if (typeof renderMockTestsPage === 'function') {
                 renderMockTestsPage();
             } else {
                 content.innerHTML = '<h2>Mock Tests Module Loading...</h2>';
             }
-         } else {
-             window.location.hash = 'login';
-         }
+        } else {
+            window.location.hash = 'login';
+        }
     } else if (hash.startsWith('take-test/')) {
         const testId = hash.split('/')[1];
         if (AppState.currentUser) {
-             if (typeof startMockTest === 'function') {
+            if (typeof startMockTest === 'function') {
                 startMockTest(testId);
-             } else {
+            } else {
                 content.innerHTML = '<h2>Mock Test Loading...</h2>';
-             }
+            }
         } else {
             window.location.hash = 'login';
         }
     } else if (hash === 'certificates') {
         if (AppState.currentUser) {
-             if (typeof renderCertificatesPage === 'function') {
+            if (typeof renderCertificatesPage === 'function') {
                 renderCertificatesPage();
-             } else {
-                 content.innerHTML = '<h2>Certificates Module Loading...</h2>';
-             }
+            } else {
+                content.innerHTML = '<h2>Certificates Module Loading...</h2>';
+            }
         } else {
             window.location.hash = 'login';
         }
     } else {
         // Default to home if route not found
-        renderHomePage(); 
+        renderHomePage();
     }
-    
+
     // Update Navbar active state
     updateNavbarActiveState(hash);
     renderNavbar(); // Re-render navbar to update active states etc.
@@ -118,9 +118,9 @@ function handleRoute() {
 function renderNavbar() {
     const navbar = document.getElementById('navbar');
     if (!navbar) return;
-    
+
     let links = '';
-    
+
     if (!AppState.currentUser) {
         // Guest Links
         links = `
@@ -144,7 +144,7 @@ function renderNavbar() {
             <li><a href="#live-classes">Schedule</a></li>
         `;
     }
-    
+
     // User Profile Section
     const userSection = AppState.currentUser ? `
         <div class="user-info">
@@ -169,7 +169,7 @@ function renderNavbar() {
             ${userSection}
         </div>
     `;
-    
+
     // Update active state after rendering
     const hash = window.location.hash.slice(1) || 'home';
     updateNavbarActiveState(hash);
@@ -184,44 +184,162 @@ function updateNavbarActiveState(hash) {
             link.style.fontWeight = 'bold';
         } else {
             link.style.color = 'var(--white, #ffffff)';
-             link.style.fontWeight = 'normal';
+            link.style.fontWeight = 'normal';
         }
     });
 }
 
 function renderHomePage() {
     const content = document.getElementById('main-content');
-    if(!content) return;
-    
+    if (!content) return;
+
+    // Check if user is logged in
+    const isLoggedIn = AppState.currentUser !== null;
+
     content.innerHTML = `
-         <div class="hero-section" style="text-align: center; padding: 4rem 1rem;">
-            <div class="hero-content">
-                <h1 style="font-size: 3rem; margin-bottom: 1rem; color: var(--primary);">Unlock Your Potential with <span style="color: var(--secondary);">Vidyarthi</span></h1>
-                <p style="font-size: 1.2rem; color: #666; mb-2rem">Access world-class education from the comfort of your home. Live classes, mock tests, and expert-led courses.</p>
-                <div class="hero-buttons" style="margin-top: 2rem;">
-                    <button onclick="window.location.hash='courses'" class="btn-primary" style="padding: 10px 20px; font-size: 1.1rem; background: var(--primary); color: white; border: none; border-radius: 5px; cursor: pointer;">Explore Courses</button>
-                    ${!AppState.currentUser ? `<button onclick="window.location.hash='login'" class="btn-secondary" style="padding: 10px 20px; font-size: 1.1rem; background: transparent; color: var(--primary); border: 2px solid var(--primary); border-radius: 5px; cursor: pointer; margin-left: 10px;">Join for Free</button>` : ''}
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <div class="hero-grid">
+                <div class="hero-text animate-up">
+                    <span class="badge badge-premium mb-1">🚀 India's #1 Learning Platform</span>
+                    <h1>Crack Your Dream Exam with <span style="color: var(--secondary);">Vidyarthi</span></h1>
+                    <p class="animate-up delay-100">Live Classes, Test Series, and Personalized Guidance from Top Educators for UPSC, SSC, Banking, and more.</p>
+                    
+                    <div class="flex animate-up delay-200">
+                        <button onclick="window.location.hash='courses'" class="btn btn-primary">
+                            Explore Courses <i class="fas fa-arrow-right"></i>
+                        </button>
+                        ${!isLoggedIn ? `
+                        <button onclick="window.location.hash='login'" class="btn btn-secondary">
+                            Start for Free
+                        </button>` : ''}
+                    </div>
+
+                    <div class="hero-stats animate-up delay-300">
+                        <div class="hero-stat">
+                            <h3>10M+</h3>
+                            <span>Happy Students</span>
+                        </div>
+                        <div class="hero-stat">
+                            <h3>500+</h3>
+                            <span>Top Educators</span>
+                        </div>
+                        <div class="hero-stat">
+                            <h3>5000+</h3>
+                            <span>Selections</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image float">
+                    <!-- Placeholder for professional hero image -->
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Student Learning">
+                    
+                    <!-- Floating Cards Animation -->
+                    <div class="floating-card" style="position: absolute; top: 10%; left: -20px; animation: float 5s infinite reverse;">
+                        <span class="badge badge-live">● LIVE</span>
+                        <span style="font-weight: 600; font-size: 0.9rem; margin-left: 0.5rem; color: white;">SSC CGL Batch</span>
+                    </div>
+                    
+                    <div class="floating-card" style="position: absolute; bottom: 10%; right: -20px; animation: float 7s infinite;">
+                        <span class="badge badge-new">New</span>
+                        <span style="font-weight: 600; font-size: 0.9rem; margin-left: 0.5rem; color: white;">UPSC Prelims 2026</span>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <!-- Exam Categories -->
+        <section class="section">
+            <div class="section-header animate-up">
+                <div class="section-title">
+                    <h2>Explore Categories</h2>
+                    <p>Select your goal and start preparing</p>
+                </div>
+                <a href="#courses" class="btn btn-secondary">View All <i class="fas fa-chevron-right"></i></a>
+            </div>
+
+            <div class="category-grid">
+                <div class="category-card animate-up delay-100" onclick="location.hash='courses'">
+                    <i class="fas fa-landmark category-icon"></i>
+                    <h3 style="color: white;">UPSC</h3>
+                    <p style="color: var(--text-muted);">Result Oriented</p>
+                </div>
+                <div class="category-card animate-up delay-100" onclick="location.hash='courses'">
+                    <i class="fas fa-briefcase category-icon"></i>
+                    <h3 style="color: white;">Banking</h3>
+                    <p style="color: var(--text-muted);">PO & Clerk</p>
+                </div>
+                <div class="category-card animate-up delay-200" onclick="location.hash='courses'">
+                    <i class="fas fa-train category-icon"></i>
+                    <h3 style="color: white;">Railways</h3>
+                    <p style="color: var(--text-muted);">NTPC & Group D</p>
+                </div>
+                <div class="category-card animate-up delay-200" onclick="location.hash='courses'">
+                    <i class="fas fa-graduation-cap category-icon"></i>
+                    <h3 style="color: white;">SSC</h3>
+                    <p style="color: var(--text-muted);">CGL & CHSL</p>
+                </div>
+                <div class="category-card animate-up delay-300" onclick="location.hash='courses'">
+                    <i class="fas fa-code category-icon"></i>
+                    <h3 style="color: white;">IT / Tech</h3>
+                    <p style="color: var(--text-muted);">Coding & Dev</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Live Batches Feature -->
+        <section class="section" style="background: rgba(30, 41, 59, 0.5); border-radius: var(--radius-lg); padding: 3rem; backdrop-filter: blur(10px);">
+            <div class="grid" style="grid-template-columns: 1fr 1fr; align-items: center; gap: 4rem;">
+                <div class="animate-up">
+                     <span class="badge badge-live mb-1">Live Now</span>
+                    <h2>Interactive Live Classes</h2>
+                    <p style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2rem;">
+                        Chat with teachers, ask doubts in real-time, and compete in live polls. Experience the classroom feel from home.
+                    </p>
+                    <ul class="grid" style="gap: 1rem; margin-bottom: 2rem;">
+                        <li class="flex-center" style="justify-content: flex-start;">
+                            <i class="fas fa-check-circle" style="color: var(--success);"></i> <span style="color: white;">Daily Live Classes</span>
+                        </li>
+                        <li class="flex-center" style="justify-content: flex-start;">
+                            <i class="fas fa-check-circle" style="color: var(--success);"></i> <span style="color: white;">Live Doubt Solving</span>
+                        </li>
+                        <li class="flex-center" style="justify-content: flex-start;">
+                            <i class="fas fa-check-circle" style="color: var(--success);"></i> <span style="color: white;">Class Notes PDF</span>
+                        </li>
+                    </ul>
+                    <button onclick="window.location.hash='live-classes'" class="btn btn-primary">
+                        Join Live Classes
+                    </button>
+                </div>
+                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Live Class" class="float" style="border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);">
+            </div>
+        </section>
         
-        <div class="features-section" style="display: flex; justify-content: center; gap: 2rem; padding: 4rem 1rem; flex-wrap: wrap;">
-            <div class="feature-card" style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 300px; text-align: center;">
-                <div class="feature-icon" style="font-size: 3rem; margin-bottom: 1rem;">📹</div>
-                <h3>Live Interactive Classes</h3>
-                <p>Learn in real-time with expert teachers and instant doubt clearing.</p>
+        <!-- Why Choose Us -->
+        <section class="section">
+            <div class="section-title text-center animate-up" style="text-align: center; margin-bottom: 3rem;">
+                <h2>Why Choose Vidyarthi?</h2>
+                <p>We provide the best resources for your success</p>
             </div>
-            <div class="feature-card" style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 300px; text-align: center;">
-                <div class="feature-icon" style="font-size: 3rem; margin-bottom: 1rem;">📝</div>
-                <h3>Mock Tests & Quizzes</h3>
-                <p>Practice with exam-like questions and get detailed performance analysis.</p>
+            
+            <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div class="card animate-up delay-100" style="padding: 2rem;">
+                    <i class="fas fa-video" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                    <h3 style="color: white;">Best Video Quality</h3>
+                    <p style="color: var(--text-muted);">High Definition lectures with multiple quality options to save data.</p>
+                </div>
+                <div class="card animate-up delay-200" style="padding: 2rem;">
+                    <i class="fas fa-file-alt" style="font-size: 2.5rem; color: var(--secondary); margin-bottom: 1rem;"></i>
+                    <h3 style="color: white;">Detailed Test Analysis</h3>
+                    <p style="color: var(--text-muted);">Get in-depth analysis of your performance after every mock test.</p>
+                </div>
+                <div class="card animate-up delay-300" style="padding: 2rem;">
+                    <i class="fas fa-download" style="font-size: 2.5rem; color: var(--accent); margin-bottom: 1rem;"></i>
+                    <h3 style="color: white;">Offline Downloads</h3>
+                    <p style="color: var(--text-muted);">Download videos and notes to study anytime, anywhere without internet.</p>
+                </div>
             </div>
-            <div class="feature-card" style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 300px; text-align: center;">
-                <div class="feature-icon" style="font-size: 3rem; margin-bottom: 1rem;">🏆</div>
-                <h3>Earn Certificates</h3>
-                <p>Get certified upon course completion and showcase your skills.</p>
-            </div>
-        </div>
+        </section>
     `;
 }
 
