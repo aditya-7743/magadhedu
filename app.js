@@ -197,148 +197,200 @@ function renderHomePage() {
     const isLoggedIn = AppState.currentUser !== null;
 
     content.innerHTML = `
-        <!-- Hero Section -->
-        <div class="hero-section">
-            <div class="hero-grid">
-                <div class="hero-text animate-up">
-                    <span class="badge badge-premium mb-1">🚀 India's #1 Learning Platform</span>
-                    <h1>Crack Your Dream Exam with <span style="color: var(--secondary);">Vidyarthi</span></h1>
-                    <p class="animate-up delay-100">Live Classes, Test Series, and Personalized Guidance from Top Educators for UPSC, SSC, Banking, and more.</p>
-                    
-                    <div class="flex animate-up delay-200">
-                        <button onclick="window.location.hash='courses'" class="btn btn-primary">
-                            Explore Courses <i class="fas fa-arrow-right"></i>
-                        </button>
-                        ${!isLoggedIn ? `
-                        <button onclick="window.location.hash='login'" class="btn btn-secondary">
-                            Start for Free
-                        </button>` : ''}
-                    </div>
-
-                    <div class="hero-stats animate-up delay-300">
-                        <div class="hero-stat">
-                            <h3>10M+</h3>
-                            <span>Happy Students</span>
-                        </div>
-                        <div class="hero-stat">
-                            <h3>500+</h3>
-                            <span>Top Educators</span>
-                        </div>
-                        <div class="hero-stat">
-                            <h3>5000+</h3>
-                            <span>Selections</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="hero-image float">
-                    <!-- Placeholder for professional hero image -->
-                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Student Learning">
-                    
-                    <!-- Floating Cards Animation -->
-                    <div class="floating-card" style="position: absolute; top: 10%; left: -20px; animation: float 5s infinite reverse;">
-                        <span class="badge badge-live">● LIVE</span>
-                        <span style="font-weight: 600; font-size: 0.9rem; margin-left: 0.5rem; color: white;">SSC CGL Batch</span>
-                    </div>
-                    
-                    <div class="floating-card" style="position: absolute; bottom: 10%; right: -20px; animation: float 7s infinite;">
-                        <span class="badge badge-new">New</span>
-                        <span style="font-weight: 600; font-size: 0.9rem; margin-left: 0.5rem; color: white;">UPSC Prelims 2026</span>
-                    </div>
+        <!-- Hero Carousel Section -->
+        <div class="hero-carousel animate-up">
+            <div class="carousel-slide active" style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80');">
+            </div>
+            <div class="carousel-content">
+                <h2>India's Most Trusted<br><span style="color: var(--secondary);">Learning Platform</span></h2>
+                <p>Start your journey to success with the best educators for SSC, Banking, and UPSC.</p>
+                <div class="flex" style="margin-top: 2rem;">
+                    <button onclick="window.location.hash='courses'" class="btn btn-primary" style="padding: 1rem 2.5rem; font-size: 1.1rem;">
+                        Get Started <i class="fas fa-arrow-right"></i>
+                    </button>
+                    ${!isLoggedIn ? `
+                    <button onclick="window.location.hash='login'" class="btn btn-secondary" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.4);">
+                        Login / Sign Up
+                    </button>` : ''}
                 </div>
             </div>
         </div>
 
-        <!-- Exam Categories -->
+        <!-- Category Tabs -->
+        <div class="category-tabs animate-up delay-100">
+            <div class="tab-pill active"><i class="fas fa-star" style="margin-right:0.5rem"></i> Popular</div>
+            <div class="tab-pill">SSC CGL</div>
+            <div class="tab-pill">Banking PO</div>
+            <div class="tab-pill">UPSC CSE</div>
+            <div class="tab-pill">Railways</div>
+            <div class="tab-pill">Teaching</div>
+            <div class="tab-pill">Defence</div>
+            <div class="tab-pill">State Exams</div>
+        </div>
+
+        <!-- Live Batches (Horizontal Scroll) -->
         <section class="section">
-            <div class="section-header animate-up">
+            <div class="section-header animate-up delay-200" style="margin-bottom: 1.5rem;">
                 <div class="section-title">
-                    <h2>Explore Categories</h2>
-                    <p>Select your goal and start preparing</p>
+                    <div class="flex-center" style="justify-content: flex-start;">
+                        <span class="live-indicator"></span>
+                        <h2 style="font-size: 1.8rem; margin: 0;">Live Batches</h2>
+                    </div>
+                    <p>Join ongoing classes and interact with teachers</p>
                 </div>
-                <a href="#courses" class="btn btn-secondary">View All <i class="fas fa-chevron-right"></i></a>
+                <a href="#live-classes" class="btn btn-secondary" style="border-radius: 50px;">View All</a>
             </div>
 
-            <div class="category-grid">
-                <div class="category-card animate-up delay-100" onclick="location.hash='courses'">
-                    <i class="fas fa-landmark category-icon"></i>
-                    <h3 style="color: white;">UPSC</h3>
-                    <p style="color: var(--text-muted);">Result Oriented</p>
+            <div class="horizontal-scroll animate-up delay-300">
+                <!-- Card 1 -->
+                <div class="card" style="width: 320px;">
+                    <div class="course-thumbnail">
+                        <span class="badge badge-live course-badge">LIVE</span>
+                        <img src="https://images.unsplash.com/photo-1596495578065-6e0763fa1178?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="SSC CGL">
+                    </div>
+                    <div class="course-content">
+                        <div class="course-meta">
+                            <span><i class="fas fa-book-reader"></i> Math Special</span>
+                            <span><i class="fas fa-clock"></i> 10:00 AM</span>
+                        </div>
+                        <h3 class="course-title">SSC CGL 2026 Foundation Batch (Pre + Mains)</h3>
+                        <div class="flex-between" style="margin-top: auto; padding-top: 1rem;">
+                            <div class="price-block">
+                                <span class="price-new">₹999</span>
+                                <span class="price-old">₹2999</span>
+                            </div>
+                            <button class="btn btn-primary" style="padding: 0.5rem 1rem;">Join Now</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="category-card animate-up delay-100" onclick="location.hash='courses'">
-                    <i class="fas fa-briefcase category-icon"></i>
-                    <h3 style="color: white;">Banking</h3>
-                    <p style="color: var(--text-muted);">PO & Clerk</p>
+
+                <!-- Card 2 -->
+                <div class="card" style="width: 320px;">
+                    <div class="course-thumbnail">
+                        <span class="badge badge-live course-badge">LIVE</span>
+                        <img src="https://images.unsplash.com/photo-1550592704-6c76defa9985?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Banking">
+                    </div>
+                    <div class="course-content">
+                        <div class="course-meta">
+                            <span><i class="fas fa-chart-line"></i> Reasoning</span>
+                            <span><i class="fas fa-clock"></i> 11:30 AM</span>
+                        </div>
+                        <h3 class="course-title">IBPS PO Target Batch 2026</h3>
+                        <div class="flex-between" style="margin-top: auto; padding-top: 1rem;">
+                            <div class="price-block">
+                                <span class="price-new">₹1299</span>
+                                <span class="price-old">₹3999</span>
+                            </div>
+                            <button class="btn btn-primary" style="padding: 0.5rem 1rem;">Join Now</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="category-card animate-up delay-200" onclick="location.hash='courses'">
-                    <i class="fas fa-train category-icon"></i>
-                    <h3 style="color: white;">Railways</h3>
-                    <p style="color: var(--text-muted);">NTPC & Group D</p>
+
+                <!-- Card 3 -->
+                <div class="card" style="width: 320px;">
+                    <div class="course-thumbnail">
+                        <span class="badge badge-new course-badge">New</span>
+                        <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="UPSC">
+                    </div>
+                    <div class="course-content">
+                        <div class="course-meta">
+                            <span><i class="fas fa-globe"></i> General Studies</span>
+                            <span><i class="fas fa-calendar"></i> Starts 15 Feb</span>
+                        </div>
+                        <h3 class="course-title">UPSC CSE GS Foundation 2027</h3>
+                        <div class="flex-between" style="margin-top: auto; padding-top: 1rem;">
+                            <div class="price-block">
+                                <span class="price-new">₹4999</span>
+                                <span class="price-old">₹19999</span>
+                            </div>
+                            <button class="btn btn-secondary" style="padding: 0.5rem 1rem;">Enroll</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="category-card animate-up delay-200" onclick="location.hash='courses'">
-                    <i class="fas fa-graduation-cap category-icon"></i>
-                    <h3 style="color: white;">SSC</h3>
-                    <p style="color: var(--text-muted);">CGL & CHSL</p>
-                </div>
-                <div class="category-card animate-up delay-300" onclick="location.hash='courses'">
-                    <i class="fas fa-code category-icon"></i>
-                    <h3 style="color: white;">IT / Tech</h3>
-                    <p style="color: var(--text-muted);">Coding & Dev</p>
+                 <!-- Card 4 -->
+                <div class="card" style="width: 320px;">
+                    <div class="course-thumbnail">
+                        <span class="badge badge-premium course-badge">Bestseller</span>
+                        <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="English">
+                    </div>
+                    <div class="course-content">
+                        <div class="course-meta">
+                            <span><i class="fas fa-language"></i> English</span>
+                            <span><i class="fas fa-video"></i> VOD</span>
+                        </div>
+                        <h3 class="course-title">English Special by Neetu Mam Style</h3>
+                        <div class="flex-between" style="margin-top: auto; padding-top: 1rem;">
+                            <div class="price-block">
+                                <span class="price-new">₹799</span>
+                                <span class="price-old">₹1999</span>
+                            </div>
+                            <button class="btn btn-secondary" style="padding: 0.5rem 1rem;">Buy Now</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Live Batches Feature -->
-        <section class="section" style="background: #e8eaf6; border-radius: var(--radius-lg); padding: 3rem;">
-            <div class="grid" style="grid-template-columns: 1fr 1fr; align-items: center; gap: 4rem;">
-                <div class="animate-up">
-                     <span class="badge badge-live mb-1">Live Now</span>
-                    <h2>Interactive Live Classes</h2>
-                    <p style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2rem;">
-                        Chat with teachers, ask doubts in real-time, and compete in live polls. Experience the classroom feel from home.
-                    </p>
-                    <ul class="grid" style="gap: 1rem; margin-bottom: 2rem;">
-                        <li class="flex-center" style="justify-content: flex-start;">
-                            <i class="fas fa-check-circle" style="color: var(--success);"></i> <span>Daily Live Classes</span>
-                        </li>
-                        <li class="flex-center" style="justify-content: flex-start;">
-                            <i class="fas fa-check-circle" style="color: var(--success);"></i> <span>Live Doubt Solving</span>
-                        </li>
-                        <li class="flex-center" style="justify-content: flex-start;">
-                            <i class="fas fa-check-circle" style="color: var(--success);"></i> <span>Class Notes PDF</span>
-                        </li>
-                    </ul>
-                    <button onclick="window.location.hash='live-classes'" class="btn btn-primary">
-                        Join Live Classes
-                    </button>
+        <!-- Provide Teachers / Faculty Section -->
+        <section class="section" style="background: #f8f9fa;">
+            <div class="section-header text-center" style="display: block; text-align: center; max-width: 700px; margin: 0 auto 3rem;">
+                <h2 style="font-size: 2.2rem; margin-bottom: 0.5rem;">Study with India's Best Educators</h2>
+                <p style="color: var(--text-muted);">Learn from the masters of their subjects who have mentored millions of students.</p>
+            </div>
+
+            <div class="faculty-grid">
+                <div class="faculty-card">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Teacher" class="faculty-img">
+                    <h4 class="faculty-name">Aditya Sir</h4>
+                    <p class="faculty-subject">Maths Wizard</p>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">10+ Years Exp.</p>
                 </div>
-                <!-- Removed 'float' class to be more subtle, kept inline style for image only -->
-                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Live Class" style="border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);">
+                <div class="faculty-card">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Teacher" class="faculty-img">
+                    <h4 class="faculty-name">Priya Ma'am</h4>
+                    <p class="faculty-subject">English Dept.</p>
+                     <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">Ex-Bank PO</p>
+                </div>
+                <div class="faculty-card">
+                    <img src="https://randomuser.me/api/portraits/men/86.jpg" alt="Teacher" class="faculty-img">
+                    <h4 class="faculty-name">Dr. Sharma</h4>
+                    <p class="faculty-subject">General Science</p>
+                     <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">Ph.D Physics</p>
+                </div>
+                <div class="faculty-card">
+                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Teacher" class="faculty-img">
+                    <h4 class="faculty-name">Neha Gupta</h4>
+                    <p class="faculty-subject">Current Affairs</p>
+                     <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">UPSC Interview</p>
+                </div>
             </div>
         </section>
-        
-        <!-- Why Choose Us -->
+
+        <!-- App Download CTA -->
         <section class="section">
-            <div class="section-title text-center animate-up" style="margin-bottom: 3rem;">
-                <h2>Why Choose Vidyarthi?</h2>
-                <p>We provide the best resources for your success</p>
-            </div>
-            
-            <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-                <div class="card animate-up delay-100" style="padding: 2rem;">
-                    <i class="fas fa-video" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem;"></i>
-                    <h3>Best Video Quality</h3>
-                    <p style="color: var(--text-muted);">High Definition lectures with multiple quality options to save data.</p>
+            <div class="app-download-section">
+                <div class="app-content">
+                    <h2>Start Learning Anywhere, Anytime</h2>
+                    <p>Download the Vidyarthi App for a seamless learning experience. Watch videos offline, attempt tests, and get instant notifications.</p>
+                    
+                    <div class="store-badges">
+                        <div style="background: black; color: white; border-radius: 8px; padding: 0.5rem 1rem; display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                            <i class="fab fa-google-play" style="font-size: 1.5rem;"></i>
+                            <div style="text-align: left; line-height: 1.2;">
+                                <span style="font-size: 0.7rem; display: block;">GET IT ON</span>
+                                <span style="font-weight: 600; font-size: 1rem;">Google Play</span>
+                            </div>
+                        </div>
+                        <div style="background: black; color: white; border-radius: 8px; padding: 0.5rem 1rem; display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                            <i class="fab fa-apple" style="font-size: 1.5rem;"></i>
+                            <div style="text-align: left; line-height: 1.2;">
+                                <span style="font-size: 0.7rem; display: block;">Download on the</span>
+                                <span style="font-weight: 600; font-size: 1rem;">App Store</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="card animate-up delay-200" style="padding: 2rem;">
-                    <i class="fas fa-file-alt" style="font-size: 2.5rem; color: var(--secondary); margin-bottom: 1rem;"></i>
-                    <h3>Detailed Test Analysis</h3>
-                    <p style="color: var(--text-muted);">Get in-depth analysis of your performance after every mock test.</p>
-                </div>
-                <div class="card animate-up delay-300" style="padding: 2rem;">
-                    <i class="fas fa-download" style="font-size: 2.5rem; color: var(--accent); margin-bottom: 1rem;"></i>
-                    <h3>Offline Downloads</h3>
-                    <p style="color: var(--text-muted);">Download videos and notes to study anytime, anywhere without internet.</p>
-                </div>
+                <!-- Mockup Image here would go via CSS or an img tag -->
             </div>
         </section>
     `;
