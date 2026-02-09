@@ -288,7 +288,7 @@ function renderHomePage() {
         </section>
 
         <!-- Live Batches Feature -->
-        <section class="section" style="background: rgba(30, 41, 59, 0.5); border-radius: var(--radius-lg); padding: 3rem; backdrop-filter: blur(10px);">
+        <section class="section" style="background: #e8eaf6; border-radius: var(--radius-lg); padding: 3rem;">
             <div class="grid" style="grid-template-columns: 1fr 1fr; align-items: center; gap: 4rem;">
                 <div class="animate-up">
                      <span class="badge badge-live mb-1">Live Now</span>
@@ -298,26 +298,27 @@ function renderHomePage() {
                     </p>
                     <ul class="grid" style="gap: 1rem; margin-bottom: 2rem;">
                         <li class="flex-center" style="justify-content: flex-start;">
-                            <i class="fas fa-check-circle" style="color: var(--success);"></i> <span style="color: white;">Daily Live Classes</span>
+                            <i class="fas fa-check-circle" style="color: var(--success);"></i> <span>Daily Live Classes</span>
                         </li>
                         <li class="flex-center" style="justify-content: flex-start;">
-                            <i class="fas fa-check-circle" style="color: var(--success);"></i> <span style="color: white;">Live Doubt Solving</span>
+                            <i class="fas fa-check-circle" style="color: var(--success);"></i> <span>Live Doubt Solving</span>
                         </li>
                         <li class="flex-center" style="justify-content: flex-start;">
-                            <i class="fas fa-check-circle" style="color: var(--success);"></i> <span style="color: white;">Class Notes PDF</span>
+                            <i class="fas fa-check-circle" style="color: var(--success);"></i> <span>Class Notes PDF</span>
                         </li>
                     </ul>
                     <button onclick="window.location.hash='live-classes'" class="btn btn-primary">
                         Join Live Classes
                     </button>
                 </div>
-                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Live Class" class="float" style="border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);">
+                <!-- Removed 'float' class to be more subtle, kept inline style for image only -->
+                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Live Class" style="border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);">
             </div>
         </section>
         
         <!-- Why Choose Us -->
         <section class="section">
-            <div class="section-title text-center animate-up" style="text-align: center; margin-bottom: 3rem;">
+            <div class="section-title text-center animate-up" style="margin-bottom: 3rem;">
                 <h2>Why Choose Vidyarthi?</h2>
                 <p>We provide the best resources for your success</p>
             </div>
@@ -325,17 +326,17 @@ function renderHomePage() {
             <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
                 <div class="card animate-up delay-100" style="padding: 2rem;">
                     <i class="fas fa-video" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem;"></i>
-                    <h3 style="color: white;">Best Video Quality</h3>
+                    <h3>Best Video Quality</h3>
                     <p style="color: var(--text-muted);">High Definition lectures with multiple quality options to save data.</p>
                 </div>
                 <div class="card animate-up delay-200" style="padding: 2rem;">
                     <i class="fas fa-file-alt" style="font-size: 2.5rem; color: var(--secondary); margin-bottom: 1rem;"></i>
-                    <h3 style="color: white;">Detailed Test Analysis</h3>
+                    <h3>Detailed Test Analysis</h3>
                     <p style="color: var(--text-muted);">Get in-depth analysis of your performance after every mock test.</p>
                 </div>
                 <div class="card animate-up delay-300" style="padding: 2rem;">
                     <i class="fas fa-download" style="font-size: 2.5rem; color: var(--accent); margin-bottom: 1rem;"></i>
-                    <h3 style="color: white;">Offline Downloads</h3>
+                    <h3>Offline Downloads</h3>
                     <p style="color: var(--text-muted);">Download videos and notes to study anytime, anywhere without internet.</p>
                 </div>
             </div>
