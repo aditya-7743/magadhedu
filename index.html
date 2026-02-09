@@ -25,96 +25,48 @@
     <!-- jsPDF for Certificates -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
 
-        :root {
-            --primary: #1a237e;
-            --secondary: #283593;
-            --accent: #ffd600;
-            --success: #00c853;
-            --danger: #d50000;
-            --text: #212121;
-            --bg: #f5f5f5;
-            --white: #ffffff;
-        }
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-overlay" style="display: flex;">
+        <div class="spinner"></div>
+        <p>Loading Vidyarthi...</p>
+    </div>
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-        }
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <!-- Will be populated by renderNavbar() -->
+    </nav>
 
-        /* ==================== NAVIGATION ==================== */
-        .navbar {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: var(--white);
-            padding: 1rem 2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+    <!-- Main Content Area -->
+    <div class="container" id="main-content">
+        <!-- Dynamic content will be loaded here -->
+    </div>
 
-        .navbar-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    <!-- Application Scripts -->
+    <script src="firebase-config.js"></script>
+    <script src="app.js"></script>
+    <script src="auth.js"></script>
+    <script src="student-dashboard.js"></script>
+    <script src="teacher-dashboard.js"></script>
+    <script src="courses.js"></script>
+    <script src="live-class.js"></script>
+    <script src="mock-test.js"></script>
+    <script src="video-player.js"></script>
+    <script src="certificate.js"></script>
+    <script src="payment.js"></script>
+    <script src="analytics.js"></script>
+    <script src="notifications.js"></script>
+    <script src="settings.js"></script>
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--white);
-            text-decoration: none;
-            transition: color 0.3s;
-            font-weight: 500;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent);
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        /* ==================== CONTAINERS ==================== */
-        .container {
-            max-width: 1400px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-        }
-
-        .section {
-            display: none;
-            animation: fadeIn 0.3s ease-in;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0
+    <script>
+        // Initialize Application
+        document.addEventListener('DOMContentLoaded', () => {
+            initFirebase();
+            initApp();
+        });
+    </script>
+</body>
+</html>
