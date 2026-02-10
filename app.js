@@ -6,6 +6,120 @@ const AppState = {
     currentView: 'home'
 };
 
+// ==========================================
+// MOCK DATA
+// ==========================================
+const HERO_SLIDES = [
+    {
+        id: 1,
+        image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80',
+        title: "India's Most Trusted <br><span style='color: var(--secondary);'>Learning Platform</span>",
+        subtitle: "Start your journey to success with the best educators for SSC, Banking, and UPSC.",
+        ctaText: "Get Started",
+        ctaLink: "#courses"
+    },
+    {
+        id: 2,
+        image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80',
+        title: "Ace Your Exams with <br><span style='color: var(--secondary);'>Video Courses</span>",
+        subtitle: "Unlimited access to premium video lectures, mock tests, and study material.",
+        ctaText: "Explore Courses",
+        ctaLink: "#courses"
+    },
+    {
+        id: 3,
+        image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80',
+        title: "Daily <span style='color: var(--secondary);'>Live Classes</span> <br>& Doubt Sessions",
+        subtitle: "Interact with top teachers in real-time and clear your doubts instantly.",
+        ctaText: "Join Live",
+        ctaLink: "#live-classes"
+    }
+];
+
+const CATEGORIES = [
+    { id: 'all', name: 'Popular', icon: 'fas fa-star' },
+    { id: 'ssc', name: 'SSC CGL', icon: 'fas fa-graduation-cap' },
+    { id: 'banking', name: 'Banking PO', icon: 'fas fa-briefcase' },
+    { id: 'upsc', name: 'UPSC CSE', icon: 'fas fa-landmark' },
+    { id: 'railways', name: 'Railways', icon: 'fas fa-train' },
+    { id: 'teaching', name: 'Teaching', icon: 'fas fa-chalkboard-teacher' },
+    { id: 'defence', name: 'Defence', icon: 'fas fa-shield-alt' },
+    { id: 'state', name: 'State Exams', icon: 'fas fa-map-marker-alt' }
+];
+
+const COURSES_DATA = [
+    {
+        id: 101,
+        title: "SSC CGL 2026 Foundation Batch (Pre + Mains)",
+        category: "ssc",
+        image: "https://images.unsplash.com/photo-1596495578065-6e0763fa1178?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+        price: 999,
+        originalPrice: 2999,
+        badge: "LIVE",
+        badgeColor: "badge-live",
+        metaIcon: "fas fa-book-reader",
+        metaText: "Math Special",
+        subMetaIcon: "fas fa-clock",
+        subMetaText: "10:00 AM"
+    },
+    {
+        id: 102,
+        title: "IBPS PO Target Batch 2026",
+        category: "banking",
+        image: "https://images.unsplash.com/photo-1550592704-6c76defa9985?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+        price: 1299,
+        originalPrice: 3999,
+        badge: "LIVE",
+        badgeColor: "badge-live",
+        metaIcon: "fas fa-chart-line",
+        metaText: "Reasoning",
+        subMetaIcon: "fas fa-clock",
+        subMetaText: "11:30 AM"
+    },
+    {
+        id: 103,
+        title: "UPSC CSE GS Foundation 2027",
+        category: "upsc",
+        image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+        price: 4999,
+        originalPrice: 19999,
+        badge: "New",
+        badgeColor: "success", // Will be mapped to style
+        metaIcon: "fas fa-globe",
+        metaText: "General Studies",
+        subMetaIcon: "fas fa-calendar",
+        subMetaText: "Starts 15 Feb"
+    },
+    {
+        id: 104,
+        title: "English Special by Neetu Mam Style",
+        category: "ssc",
+        image: "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+        price: 799,
+        originalPrice: 1999,
+        badge: "Bestseller",
+        badgeColor: "secondary",
+        metaIcon: "fas fa-language",
+        metaText: "English",
+        subMetaIcon: "fas fa-video",
+        subMetaText: "VOD"
+    },
+    {
+        id: 105,
+        title: "RRB NTPC & Group D Crash Course",
+        category: "railways",
+        image: "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+        price: 499,
+        originalPrice: 1499,
+        badge: "Trending",
+        badgeColor: "warning",
+        metaIcon: "fas fa-train",
+        metaText: "Complete Batch",
+        subMetaIcon: "fas fa-bolt",
+        subMetaText: "Fast Track"
+    }
+];
+
 // Initialize Application
 function initApp() {
     // Check Authentication State
@@ -196,36 +310,71 @@ function renderHomePage() {
     // Check if user is logged in
     const isLoggedIn = AppState.currentUser !== null;
 
-    content.innerHTML = `
-        <!-- Hero Carousel Section -->
-        <div class="hero-carousel animate-up">
-            <div class="carousel-slide active" style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80');">
-            </div>
+    // 1. Generate Hero Carousel HTML
+    const heroSlidesHTML = HERO_SLIDES.map((slide, index) => `
+        <div class="carousel-slide ${index === 0 ? 'active' : ''}" style="background-image: url('${slide.image}');">
             <div class="carousel-content">
-                <h2>India's Most Trusted<br><span style="color: var(--secondary);">Learning Platform</span></h2>
-                <p>Start your journey to success with the best educators for SSC, Banking, and UPSC.</p>
+                <h2>${slide.title}</h2>
+                <p>${slide.subtitle}</p>
                 <div class="flex" style="margin-top: 2rem;">
-                    <button onclick="window.location.hash='courses'" class="btn btn-primary">
-                        Get Started <i class="fas fa-arrow-right"></i>
+                    <button onclick="window.location.hash='${slide.ctaLink.replace('#', '')}'" class="btn btn-primary">
+                        ${slide.ctaText} <i class="fas fa-arrow-right"></i>
                     </button>
-                    ${!isLoggedIn ? `
-                    <button onclick="window.location.hash='login'" class="btn btn-secondary">
+                    ${index === 0 && !isLoggedIn ? `
+                    <button onclick="window.location.hash='login'" class="btn btn-secondary" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.4);">
                         Login / Sign Up
                     </button>` : ''}
                 </div>
             </div>
         </div>
+    `).join('');
+
+    // 2. Generate Category Tabs HTML
+    const categoriesHTML = CATEGORIES.map((cat, index) => `
+        <div class="tab-pill ${index === 0 ? 'active' : ''}" onclick="filterCourses('${cat.id}', this)" data-category="${cat.id}">
+            <i class="${cat.icon}" style="margin-right:0.5rem"></i> ${cat.name}
+        </div>
+    `).join('');
+
+    // 3. Generate Live Batches HTML (All initially or filtered)
+    // We'll show all courses initially or "Popular" ones
+    const initialCourses = COURSES_DATA; // Show all for horizontal scroll
+    const liveBatchesHTML = initialCourses.map(course => `
+        <div class="card course-card-wrapper" onclick="window.location.hash='course/${course.id}'">
+            <div class="course-thumbnail">
+                <span class="badge-${course.badgeColor}">${course.badge}</span>
+                <img src="${course.image}" alt="${course.title}">
+            </div>
+            <div class="course-content">
+                <div class="course-meta">
+                    <span><i class="${course.metaIcon}"></i> ${course.metaText}</span>
+                    <span><i class="${course.subMetaIcon}"></i> ${course.subMetaText}</span>
+                </div>
+                <h3 class="course-title">${course.title}</h3>
+                <div class="flex-between" style="margin-top: auto; padding-top: 1rem;">
+                    <div class="price-block">
+                        <span class="price-new">₹${course.price}</span>
+                        <span class="price-old">₹${course.originalPrice}</span>
+                    </div>
+                    <button class="btn btn-primary" style="padding: 0.5rem 1rem;">Join Now</button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+
+    content.innerHTML = `
+        <!-- Hero Carousel Section -->
+        <div class="hero-carousel animate-up" id="heroCarousel">
+            ${heroSlidesHTML}
+            <div class="carousel-nav-container">
+                <button class="carousel-nav prev" onclick="moveCarousel(-1)">&#10094;</button>
+                <button class="carousel-nav next" onclick="moveCarousel(1)">&#10095;</button>
+            </div>
+        </div>
 
         <!-- Category Tabs -->
-        <div class="category-tabs animate-up delay-100">
-            <div class="tab-pill active"><i class="fas fa-star" style="margin-right:0.5rem"></i> Popular</div>
-            <div class="tab-pill">SSC CGL</div>
-            <div class="tab-pill">Banking PO</div>
-            <div class="tab-pill">UPSC CSE</div>
-            <div class="tab-pill">Railways</div>
-            <div class="tab-pill">Teaching</div>
-            <div class="tab-pill">Defence</div>
-            <div class="tab-pill">State Exams</div>
+        <div class="category-tabs animate-up delay-100" id="categoryTabs">
+            ${categoriesHTML}
         </div>
 
         <!-- Live Batches (Horizontal Scroll) -->
@@ -238,96 +387,11 @@ function renderHomePage() {
                     </div>
                     <p>Join ongoing classes and interact with teachers</p>
                 </div>
-                <a href="#live-classes" class="btn btn-secondary" style="border-radius: 50px;">View All</a>
+                <a href="#courses" class="btn btn-secondary" style="border-radius: 50px;">View All</a>
             </div>
 
-            <div class="horizontal-scroll animate-up delay-300">
-                <!-- Card 1 -->
-                <div class="card course-card-wrapper">
-                    <div class="course-thumbnail">
-                        <span class="badge-live">LIVE</span>
-                        <img src="https://images.unsplash.com/photo-1596495578065-6e0763fa1178?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="SSC CGL">
-                    </div>
-                    <div class="course-content">
-                        <div class="course-meta">
-                            <span><i class="fas fa-book-reader"></i> Math Special</span>
-                            <span><i class="fas fa-clock"></i> 10:00 AM</span>
-                        </div>
-                        <h3 class="course-title">SSC CGL 2026 Foundation Batch (Pre + Mains)</h3>
-                        <div class="flex-between" style="margin-top: auto; padding-top: 1rem;">
-                            <div class="price-block">
-                                <span class="price-new">₹999</span>
-                                <span class="price-old">₹2999</span>
-                            </div>
-                            <button class="btn btn-primary" style="padding: 0.5rem 1rem;">Join Now</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="card course-card-wrapper">
-                    <div class="course-thumbnail">
-                        <span class="badge-live">LIVE</span>
-                        <img src="https://images.unsplash.com/photo-1550592704-6c76defa9985?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Banking">
-                    </div>
-                    <div class="course-content">
-                        <div class="course-meta">
-                            <span><i class="fas fa-chart-line"></i> Reasoning</span>
-                            <span><i class="fas fa-clock"></i> 11:30 AM</span>
-                        </div>
-                        <h3 class="course-title">IBPS PO Target Batch 2026</h3>
-                        <div class="flex-between" style="margin-top: auto; padding-top: 1rem;">
-                            <div class="price-block">
-                                <span class="price-new">₹1299</span>
-                                <span class="price-old">₹3999</span>
-                            </div>
-                            <button class="btn btn-primary" style="padding: 0.5rem 1rem;">Join Now</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="card course-card-wrapper">
-                    <div class="course-thumbnail">
-                        <span style="position: absolute; top: 1rem; left: 1rem; background: var(--success); color: white; padding: 0.3rem 0.8rem; border-radius: 4px; font-weight: 700; font-size: 0.8rem;">New</span>
-                        <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="UPSC">
-                    </div>
-                    <div class="course-content">
-                        <div class="course-meta">
-                            <span><i class="fas fa-globe"></i> General Studies</span>
-                            <span><i class="fas fa-calendar"></i> Starts 15 Feb</span>
-                        </div>
-                        <h3 class="course-title">UPSC CSE GS Foundation 2027</h3>
-                        <div class="flex-between" style="margin-top: auto; padding-top: 1rem;">
-                            <div class="price-block">
-                                <span class="price-new">₹4999</span>
-                                <span class="price-old">₹19999</span>
-                            </div>
-                            <button class="btn btn-secondary" style="padding: 0.5rem 1rem;">Enroll</button>
-                        </div>
-                    </div>
-                </div>
-                 <!-- Card 4 -->
-                <div class="card course-card-wrapper">
-                    <div class="course-thumbnail">
-                        <span style="position: absolute; top: 1rem; left: 1rem; background: var(--secondary); color: white; padding: 0.3rem 0.8rem; border-radius: 4px; font-weight: 700; font-size: 0.8rem;">Bestseller</span>
-                        <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="English">
-                    </div>
-                    <div class="course-content">
-                        <div class="course-meta">
-                            <span><i class="fas fa-language"></i> English</span>
-                            <span><i class="fas fa-video"></i> VOD</span>
-                        </div>
-                        <h3 class="course-title">English Special by Neetu Mam Style</h3>
-                        <div class="flex-between" style="margin-top: auto; padding-top: 1rem;">
-                            <div class="price-block">
-                                <span class="price-new">₹799</span>
-                                <span class="price-old">₹1999</span>
-                            </div>
-                            <button class="btn btn-secondary" style="padding: 0.5rem 1rem;">Buy Now</button>
-                        </div>
-                    </div>
-                </div>
+            <div class="horizontal-scroll animate-up delay-300" id="coursesScrollContainer">
+                ${liveBatchesHTML}
             </div>
         </section>
 
@@ -394,6 +458,9 @@ function renderHomePage() {
             </div>
         </section>
     `;
+
+    // Start Interactions
+    startHeroCarousel();
 }
 
 function renderLoginPage() {
@@ -500,3 +567,88 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1000);
     }
 });
+
+// ==========================================
+// INTERACTIVE FEATURES
+// ==========================================
+let currentSlide = 0;
+let carouselInterval;
+
+function startHeroCarousel() {
+    const slides = document.querySelectorAll('.carousel-slide');
+    if (slides.length === 0) return;
+
+    // Clear existing interval if any
+    if (carouselInterval) clearInterval(carouselInterval);
+
+    carouselInterval = setInterval(() => {
+        moveCarousel(1);
+    }, 4000); // 4 seconds per slide
+}
+
+function moveCarousel(direction) {
+    const slides = document.querySelectorAll('.carousel-slide');
+    if (!slides.length) return;
+
+    // Remove active class from current
+    slides[currentSlide].classList.remove('active');
+
+    // Calculate next
+    currentSlide = (currentSlide + direction + slides.length) % slides.length;
+
+    // Add active class to next
+    slides[currentSlide].classList.add('active');
+}
+
+function filterCourses(categoryId, element) {
+    // 1. Update Active Tab
+    const tabs = document.querySelectorAll('.tab-pill');
+    tabs.forEach(tab => tab.classList.remove('active'));
+    if (element) element.classList.add('active');
+
+    // 2. Filter Data
+    const container = document.getElementById('coursesScrollContainer');
+    if (!container) return;
+
+    // Fade Out
+    container.style.opacity = '0';
+    container.style.transition = 'opacity 0.3s ease';
+
+    setTimeout(() => {
+        let filteredData = COURSES_DATA;
+        if (categoryId !== 'all') {
+            filteredData = COURSES_DATA.filter(c => c.category === categoryId);
+        }
+
+        // 3. Render New List
+        if (filteredData.length === 0) {
+            container.innerHTML = `<div style="text-align:center; width:100%; padding:2rem; color:var(--text-muted);">No courses found in this category.</div>`;
+        } else {
+            container.innerHTML = filteredData.map(course => `
+                <div class="card course-card-wrapper" onclick="window.location.hash='course/${course.id}'">
+                    <div class="course-thumbnail">
+                        <span class="badge-${course.badgeColor || 'primary'}">${course.badge}</span>
+                        <img src="${course.image}" alt="${course.title}">
+                    </div>
+                    <div class="course-content">
+                        <div class="course-meta">
+                            <span><i class="${course.metaIcon}"></i> ${course.metaText}</span>
+                            <span><i class="${course.subMetaIcon}"></i> ${course.subMetaText}</span>
+                        </div>
+                        <h3 class="course-title">${course.title}</h3>
+                        <div class="flex-between" style="margin-top: auto; padding-top: 1rem;">
+                            <div class="price-block">
+                                <span class="price-new">₹${course.price}</span>
+                                <span class="price-old">₹${course.originalPrice}</span>
+                            </div>
+                            <button class="btn btn-primary" style="padding: 0.5rem 1rem;">Join Now</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Fade In
+        container.style.opacity = '1';
+    }, 300);
+}
