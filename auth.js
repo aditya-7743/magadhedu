@@ -41,7 +41,12 @@ async function handleUserLogin(user) {
     }
     
     renderNavbar();
-    
+
+    // Initialize notifications for logged-in user
+    if (typeof initNotifications === 'function') {
+        initNotifications();
+    }
+
     // Redirect to dashboard
     if (window.location.hash === '#login' || window.location.hash === '') {
         window.location.hash = `${AppState.userRole}-dashboard`;

@@ -218,6 +218,45 @@ function handleRoute() {
         } else {
             window.location.hash = 'login';
         }
+    } else if (hash === 'settings') {
+        if (AppState.currentUser) {
+            renderSettingsPage();
+        } else {
+            window.location.hash = 'login';
+        }
+    } else if (hash === 'analytics') {
+        if (AppState.currentUser) {
+            renderAnalytics();
+        } else {
+            window.location.hash = 'login';
+        }
+    } else if (hash === 'notifications') {
+        if (AppState.currentUser) {
+            renderNotificationsPage();
+        } else {
+            window.location.hash = 'login';
+        }
+    } else if (hash.startsWith('edit-course/')) {
+        const courseId = hash.split('/')[1];
+        if (AppState.currentUser) {
+            renderEditCoursePage(courseId);
+        } else {
+            window.location.hash = 'login';
+        }
+    } else if (hash.startsWith('course-analytics/')) {
+        const courseId = hash.split('/')[1];
+        if (AppState.currentUser) {
+            renderCourseAnalytics(courseId);
+        } else {
+            window.location.hash = 'login';
+        }
+    } else if (hash.startsWith('test-analysis/')) {
+        const resultId = hash.split('/')[1];
+        if (AppState.currentUser) {
+            viewDetailedAnalysis(resultId);
+        } else {
+            window.location.hash = 'login';
+        }
     } else {
         // Default to home if route not found
         renderHomePage();
@@ -249,13 +288,17 @@ function renderNavbar() {
             <li><a href="#courses">Courses</a></li>
             <li><a href="#live-classes">Live Classes</a></li>
             <li><a href="#mock-tests">Mock Tests</a></li>
+            <li><a href="#analytics">Analytics</a></li>
+            <li><a href="#notifications" style="position: relative;">Notifications <span id="notif-badge" style="position: absolute; top: -8px; right: -12px; background: var(--error); color: white; font-size: 0.65rem; width: 18px; height: 18px; border-radius: 50%; display: none; align-items: center; justify-content: center;"></span></a></li>
         `;
     } else if (AppState.userRole === 'teacher') {
         // Teacher Links
         links = `
             <li><a href="#teacher-dashboard">Dashboard</a></li>
-            <li><a href="#courses">My Courses</a></li> 
+            <li><a href="#courses">My Courses</a></li>
             <li><a href="#live-classes">Schedule</a></li>
+            <li><a href="#analytics">Analytics</a></li>
+            <li><a href="#notifications" style="position: relative;">Notifications <span id="notif-badge" style="position: absolute; top: -8px; right: -12px; background: var(--error); color: white; font-size: 0.65rem; width: 18px; height: 18px; border-radius: 50%; display: none; align-items: center; justify-content: center;"></span></a></li>
         `;
     }
 
@@ -263,8 +306,9 @@ function renderNavbar() {
     const userSection = AppState.currentUser ? `
         <div class="user-info">
             <span>${AppState.currentUser.displayName || 'User'}</span>
-            <img src="${AppState.currentUser.photoURL || 'https://via.placeholder.com/40'}" 
-                 alt="Profile" class="nav-profile-pic" onclick="toggleUserMenu()" style="border-radius: 50%; width: 40px; height: 40px; cursor: pointer;">
+            <a href="#settings" title="Settings" style="color: white; font-size: 1.1rem; margin-left: 5px;"><i class="fas fa-cog"></i></a>
+            <img src="${AppState.currentUser.photoURL || 'https://via.placeholder.com/40'}"
+                 alt="Profile" class="nav-profile-pic" style="border-radius: 50%; width: 40px; height: 40px; cursor: pointer;" onclick="window.location.hash='settings'">
             <button onclick="handleLogout()" class="btn-logout" style="margin-left: 10px; padding: 5px 10px; background: #d50000; color: white; border: none; border-radius: 4px; cursor: pointer;">Logout</button>
         </div>
     ` : '';

@@ -70,8 +70,44 @@ function processPayment(course, onSuccess) {
 }
 
 async function verifyPayment(response) {
-    // In production, verify signature on server
-    // For now, just return true
+    // Verify that the payment response contains required fields from Razorpay.
+    // NOTE: Full HMAC-SHA256 signature verification MUST be done server-side
+    // using your Razorpay key_secret. Client-side verification alone is NOT
+    // cryptographically secure. This check validates response structure and
+    // records verification status for server-side reconciliation.
+
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = response;
+
+    if (!razorpay_payment_id) {
+        console.error('Payment verification failed: missing payment ID');
+        return false;
+    }
+
+    if (!razorpay_signature) {
+        console.error('Payment verification failed: missing signature');
+        return false;
+    }
+
+    if (!razorpay_order_id) {
+        console.error('Payment verification failed: missing order ID');
+        return false;
+    }
+
+    // Store verification data for server-side reconciliation
+    try {
+        await FirebaseDB.addDoc('paymentVerifications', {
+            orderId: razorpay_order_id,
+            paymentId: razorpay_payment_id,
+            signature: razorpay_signature,
+            userId: AppState.currentUser.uid,
+            verifiedClientSide: true,
+            serverVerified: false, // To be updated by Cloud Function
+            timestamp: new Date()
+        });
+    } catch (error) {
+        console.error('Failed to store payment verification:', error);
+    }
+
     return true;
 }
 
