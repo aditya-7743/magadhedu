@@ -205,11 +205,11 @@ function renderHomePage() {
                 <h2>India's Most Trusted<br><span style="color: var(--secondary);">Learning Platform</span></h2>
                 <p>Start your journey to success with the best educators for SSC, Banking, and UPSC.</p>
                 <div class="flex" style="margin-top: 2rem;">
-                    <button onclick="window.location.hash='courses'" class="btn btn-primary" style="padding: 1rem 2.5rem; font-size: 1.1rem;">
+                    <button onclick="window.location.hash='courses'" class="btn btn-primary">
                         Get Started <i class="fas fa-arrow-right"></i>
                     </button>
                     ${!isLoggedIn ? `
-                    <button onclick="window.location.hash='login'" class="btn btn-secondary" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.4);">
+                    <button onclick="window.location.hash='login'" class="btn btn-secondary">
                         Login / Sign Up
                     </button>` : ''}
                 </div>
@@ -230,11 +230,11 @@ function renderHomePage() {
 
         <!-- Live Batches (Horizontal Scroll) -->
         <section class="section">
-            <div class="section-header animate-up delay-200" style="margin-bottom: 1.5rem;">
+            <div class="section-header animate-up delay-200">
                 <div class="section-title">
                     <div class="flex-center" style="justify-content: flex-start;">
-                        <span class="live-indicator"></span>
-                        <h2 style="font-size: 1.8rem; margin: 0;">Live Batches</h2>
+                        <span class="live-indicator" style="background: var(--error); width: 10px; height: 10px; border-radius: 50%; display: inline-block; animation: pulse 1.5s infinite; margin-right: 8px;"></span>
+                        <h2 style="margin: 0;">Live Batches</h2>
                     </div>
                     <p>Join ongoing classes and interact with teachers</p>
                 </div>
@@ -243,9 +243,9 @@ function renderHomePage() {
 
             <div class="horizontal-scroll animate-up delay-300">
                 <!-- Card 1 -->
-                <div class="card" style="width: 320px;">
+                <div class="card course-card-wrapper">
                     <div class="course-thumbnail">
-                        <span class="badge badge-live course-badge">LIVE</span>
+                        <span class="badge-live">LIVE</span>
                         <img src="https://images.unsplash.com/photo-1596495578065-6e0763fa1178?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="SSC CGL">
                     </div>
                     <div class="course-content">
@@ -265,9 +265,9 @@ function renderHomePage() {
                 </div>
 
                 <!-- Card 2 -->
-                <div class="card" style="width: 320px;">
+                <div class="card course-card-wrapper">
                     <div class="course-thumbnail">
-                        <span class="badge badge-live course-badge">LIVE</span>
+                        <span class="badge-live">LIVE</span>
                         <img src="https://images.unsplash.com/photo-1550592704-6c76defa9985?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Banking">
                     </div>
                     <div class="course-content">
@@ -287,9 +287,9 @@ function renderHomePage() {
                 </div>
 
                 <!-- Card 3 -->
-                <div class="card" style="width: 320px;">
+                <div class="card course-card-wrapper">
                     <div class="course-thumbnail">
-                        <span class="badge badge-new course-badge">New</span>
+                        <span style="position: absolute; top: 1rem; left: 1rem; background: var(--success); color: white; padding: 0.3rem 0.8rem; border-radius: 4px; font-weight: 700; font-size: 0.8rem;">New</span>
                         <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="UPSC">
                     </div>
                     <div class="course-content">
@@ -308,9 +308,9 @@ function renderHomePage() {
                     </div>
                 </div>
                  <!-- Card 4 -->
-                <div class="card" style="width: 320px;">
+                <div class="card course-card-wrapper">
                     <div class="course-thumbnail">
-                        <span class="badge badge-premium course-badge">Bestseller</span>
+                        <span style="position: absolute; top: 1rem; left: 1rem; background: var(--secondary); color: white; padding: 0.3rem 0.8rem; border-radius: 4px; font-weight: 700; font-size: 0.8rem;">Bestseller</span>
                         <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="English">
                     </div>
                     <div class="course-content">
@@ -332,7 +332,7 @@ function renderHomePage() {
         </section>
 
         <!-- Provide Teachers / Faculty Section -->
-        <section class="section" style="background: #f8f9fa;">
+        <section class="section">
             <div class="section-header text-center" style="display: block; text-align: center; max-width: 700px; margin: 0 auto 3rem;">
                 <h2 style="font-size: 2.2rem; margin-bottom: 0.5rem;">Study with India's Best Educators</h2>
                 <p style="color: var(--text-muted);">Learn from the masters of their subjects who have mentored millions of students.</p>
