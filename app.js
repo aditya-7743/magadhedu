@@ -467,3 +467,36 @@ function toggleUserMenu() {
     // Simple toggle for logout button visibility if needed, or redirect to profile
     // For now, logout button is always visible in navbar
 }
+
+// ==========================================
+// APP INITIALIZATION
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("Vidyarthi App Initializing...");
+
+    // 1. Initialize Core Logic
+    try {
+        if (typeof initApp === 'function') {
+            initApp();
+        } else {
+            console.error("initApp function is missing!");
+        }
+    } catch (e) {
+        console.error("Error during app initialization:", e);
+    }
+
+    // 2. Hide Loading Screen
+    const loader = document.getElementById('loading-screen');
+    if (loader) {
+        // Minimum loading time for branding effect
+        setTimeout(() => {
+            loader.style.transition = 'opacity 0.6s ease';
+            loader.style.opacity = '0';
+
+            // Remove from DOM/Layout after fade
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 600);
+        }, 1000);
+    }
+});
