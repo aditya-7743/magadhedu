@@ -1,54 +1,68 @@
 /* ============================================
-   VIDYARTHI - PROFESSIONAL DESIGN SYSTEM (v4.0 - Clean & Trusted)
+   VIDYARTHI - VIBRANT PROFESSIONAL (v5.0)
    ============================================ */
 
 /* 1. VARIABLES & THEME SETUP */
 :root {
-    /* Brand Colors - Professional & Trustworthy */
-    --primary: #1a237e;
-    /* Deep Royal Blue */
-    --primary-light: #283593;
-    /* Lighter Blue */
-    --secondary: #ffb703;
-    /* Gold / Success */
-    --accent: #d32f2f;
-    /* Alert Red */
+    /* Brand Colors - High Contrast & Energy */
+    --primary: #2962FF;
+    /* Vibrant Electric Blue */
+    --primary-dark: #0039CB;
+    /* Deep Blue */
+    --primary-light: #768FFF;
+    /* Soft Blue */
+
+    --secondary: #FF6D00;
+    /* Deep Orange (Action) */
+    --secondary-light: #FF9E40;
+
+    --accent: #D500F9;
+    /* Purple (Premium/Live) */
+
+    /* Gradients */
+    --grad-primary: linear-gradient(135deg, #2962FF 0%, #1565C0 100%);
+    --grad-header: linear-gradient(90deg, #1A237E 0%, #0D47A1 100%);
+    --grad-card-hover: linear-gradient(145deg, #ffffff 0%, #F5F7FA 100%);
+    --grad-glass: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
 
     /* Functional Colors */
-    --success: #2e7d32;
-    /* Green */
-    --warning: #ed6c02;
-    /* Orange */
-    --info: #0288d1;
-    /* Light Blue */
-    --error: #d32f2f;
-    /* Red */
+    --success: #00C853;
+    /* Vibrant Green */
+    --warning: #FFAB00;
+    /* Amber */
+    --error: #FF1744;
+    /* Bright Red */
 
-    /* Neutral Scale - Light Theme */
-    --text-main: #212121;
-    /* Charcoal Black */
-    --text-muted: #616161;
-    /* Grey */
-    --bg-body: #f5f7fa;
-    /* Very Light Greyish Blue */
-    --bg-surface: #ffffff;
-    /* Pure White */
-    --border: #e0e0e0;
-    /* Light Border */
+    /* Neutral Scale */
+    --text-main: #102027;
+    /* Very Dark Blue-Grey */
+    --text-muted: #546E7A;
+    /* Blue-Grey */
+    --text-light: #B0BEC5;
+    /* Light Blue-Grey */
 
-    /* Professional Shadows */
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.15);
-    --shadow-hover: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    --bg-body: #F0F4F8;
+    /* Cool Grey-Blue Tint (Not plain white) */
+    --bg-surface: #FFFFFF;
+    /* Pure White Cards */
+
+    --border: #CFD8DC;
+    /* Light Blue-Grey Border */
+
+    /* Deep Shadows - "Lifted" Feel */
+    --shadow-sm: 0 2px 8px rgba(41, 98, 255, 0.08);
+    /* Blue-tinted shadow */
+    --shadow-md: 0 8px 24px rgba(41, 98, 255, 0.12);
+    --shadow-lg: 0 16px 48px rgba(41, 98, 255, 0.18);
+    --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.15), 0 0 0 2px rgba(41, 98, 255, 0.1);
 
     /* Layout */
-    --max-width: 1200px;
-    --radius-sm: 4px;
-    --radius-md: 8px;
-    --radius-lg: 12px;
-    --radius-pill: 50px;
-    --header-height: 70px;
+    --max-width: 1280px;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-xl: 32px;
+    --header-height: 75px;
 }
 
 /* 2. RESET & BASE STYLES */
@@ -60,11 +74,14 @@
 }
 
 body {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Inter', sans-serif;
     background-color: var(--bg-body);
     color: var(--text-main);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    /* Subtle background pattern */
+    background-image: radial-gradient(#CFD8DC 1px, transparent 1px);
+    background-size: 40px 40px;
 }
 
 h1,
@@ -74,15 +91,18 @@ h4,
 h5,
 h6 {
     font-family: 'Poppins', sans-serif;
-    font-weight: 600;
-    color: var(--primary);
-    line-height: 1.3;
+    font-weight: 700;
+    /* Bolder headings */
+    color: #1A237E;
+    /* Deep Royal Blue */
+    line-height: 1.25;
+    letter-spacing: -0.5px;
 }
 
 a {
     text-decoration: none;
     color: inherit;
-    transition: color 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 ul {
@@ -94,7 +114,7 @@ img {
     display: block;
 }
 
-/* 3. UTILITIES */
+/* 3. UTILITIES & ANIMATIONS */
 .container {
     max-width: var(--max-width);
     margin: 0 auto;
@@ -113,11 +133,33 @@ img {
     margin-bottom: 2rem;
 }
 
-/* Animation Classes (Subtle) */
+.flex {
+    display: flex;
+    gap: 1rem;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+/* Entrance Animations */
 .animate-up {
-    animation: fadeInUp 0.6s ease-out forwards;
+    animation: fadeInUp 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
 }
 
 .delay-100 {
@@ -139,152 +181,75 @@ img {
     }
 }
 
-.float {
-    animation: float 6s ease-in-out infinite;
-}
+/* Pulse for Live Status */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 109, 0, 0.4);
+    }
 
-@keyframes float {
+    70% {
+        box-shadow: 0 0 0 10px rgba(255, 109, 0, 0);
+    }
 
-    0%,
     100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-10px);
+        box-shadow: 0 0 0 0 rgba(255, 109, 0, 0);
     }
 }
 
-/* 4. COMPONENTS */
+/* 4. COMPONENTS - VIBRANT */
 
 /* Buttons */
 .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    border-radius: var(--radius-pill);
-    /* Pill shape is standard professional */
+    gap: 0.6rem;
+    padding: 0.9rem 2rem;
+    border-radius: 50px;
     font-weight: 600;
     font-family: 'Poppins', sans-serif;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border: none;
-    font-size: 0.95rem;
-}
-
-.btn:active {
-    transform: scale(0.98);
+    font-size: 1rem;
+    position: relative;
+    overflow: hidden;
 }
 
 .btn-primary {
-    background: var(--primary);
+    background: var(--grad-primary);
     color: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 16px rgba(41, 98, 255, 0.3);
 }
 
 .btn-primary:hover {
-    background: var(--primary-light);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    transform: translateY(-1px);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(41, 98, 255, 0.4);
 }
 
 .btn-secondary {
     background: white;
     color: var(--primary);
-    border: 1px solid var(--primary);
+    border: 2px solid var(--primary);
+    box-shadow: var(--shadow-sm);
 }
 
 .btn-secondary:hover {
-    background: rgba(26, 35, 126, 0.05);
-}
-
-/* Cards */
-.card {
-    background: var(--bg-surface);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
-    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
-    overflow: hidden;
-    border: 1px solid var(--border);
-}
-
-.card:hover {
-    box-shadow: var(--shadow-hover);
-    transform: translateY(-5px);
-}
-
-/* Inputs */
-input,
-select,
-textarea {
-    width: 100%;
-    padding: 0.8rem 1rem;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    font-family: 'Inter', sans-serif;
-    font-size: 1rem;
-    transition: border-color 0.2s;
-    background: white;
-}
-
-input:focus,
-select:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.1);
-}
-
-/* Badges */
-.badge {
-    padding: 0.25rem 0.75rem;
-    border-radius: var(--radius-pill);
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    display: inline-block;
-}
-
-.badge-live {
-    background: var(--accent);
+    background: var(--primary);
     color: white;
-    animation: pulse 2s infinite;
+    transform: translateY(-2px);
 }
 
-.badge-new {
-    background: var(--success);
-    color: white;
-}
-
-.badge-premium {
-    background: var(--secondary);
-    color: var(--primary);
-}
-
-@keyframes pulse {
-    0% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0.7;
-    }
-
-    100% {
-        opacity: 1;
-    }
-}
-
-
-/* 5. HEADER & NAVIGATION */
+/* 5. HEADER (App-like) */
 .navbar {
-    background: var(--bg-surface);
+    background: var(--grad-header);
+    /* Deep Blue Gradient */
     height: var(--header-height);
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     position: sticky;
     top: 0;
     z-index: 1000;
+    color: white;
 }
 
 .navbar-content {
@@ -300,113 +265,148 @@ select:focus {
 .logo {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.8rem;
     font-family: 'Poppins', sans-serif;
-    font-weight: 700;
-    font-size: 1.5rem;
-    color: var(--primary);
+    font-weight: 800;
+    font-size: 1.6rem;
+    color: white;
+    letter-spacing: -0.5px;
+}
+
+.logo-icon {
+    color: var(--secondary);
+    font-size: 1.8rem;
 }
 
 .nav-links {
     display: flex;
-    gap: 2rem;
+    gap: 2.5rem;
 }
 
 .nav-links a {
     font-weight: 500;
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.8);
     position: relative;
-    padding: 5px 0;
 }
 
 .nav-links a:hover,
 .nav-links a.active {
-    color: var(--primary);
+    color: white;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
-.nav-links a.active::after {
-    content: '';
+/* User Profile Badge */
+.user-profile-btn {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.user-profile-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* 6. HERO SECTION - High Impact */
+.hero-section {
+    padding: 2rem 0;
+    /* Reduced padding, using carousel height */
+}
+
+/* Hero Carousel */
+.hero-carousel {
+    position: relative;
+    width: 100%;
+    height: 480px;
+    /* Taller */
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    margin-bottom: 2.5rem;
+    border: 4px solid white;
+    /* Frame effect */
+}
+
+.carousel-slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.9);
+}
+
+.carousel-content {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 2px;
-    background: var(--primary);
+    padding: 5rem 3rem 3rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    color: white;
 }
 
-/* 6. HERO SECTION - Clean Professional Design */
-.hero-section {
-    padding: 4rem 0 3rem;
-    background: white;
-    /* Clean white background */
-    border-bottom: 1px solid var(--border);
+.carousel-content h2 {
+    font-size: 3.5rem;
+    color: white;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
-.hero-grid {
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 3rem;
-    align-items: center;
+.carousel-content p {
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 600px;
+    margin-bottom: 1.5rem;
 }
 
-.hero-text h1 {
-    font-size: 3rem;
+/* 7. CATEGORY TABS - Vibrant Pills */
+.category-tabs {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding: 0.5rem 0.5rem 1.5rem;
     margin-bottom: 1rem;
-    letter-spacing: -0.5px;
-    color: #1a237e;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
 }
 
-.hero-text p {
-    font-size: 1.15rem;
-    color: var(--text-muted);
-    margin-bottom: 2rem;
-    max-width: 90%;
+.category-tabs::-webkit-scrollbar {
+    display: none;
 }
 
-.hero-stats {
-    display: flex;
-    gap: 3rem;
-    margin-top: 2rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid #eee;
-}
-
-.hero-stat h3 {
-    font-size: 1.8rem;
-    color: var(--primary);
-    margin-bottom: 0px;
-}
-
-.hero-stat span {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-}
-
-.hero-image {
-    position: relative;
-}
-
-.hero-image img {
-    border-radius: var(--radius-lg);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    border: 5px solid white;
-}
-
-/* Floating Clean Cards */
-.floating-card {
+.tab-pill {
+    padding: 0.8rem 2rem;
     background: white;
-    padding: 0.8rem 1.2rem;
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-lg);
-    position: absolute;
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    z-index: 10;
-    border: 1px solid #f0f0f0;
+    border-radius: 50px;
+    font-weight: 600;
+    color: var(--text-muted);
+    box-shadow: var(--shadow-sm);
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
 }
 
-/* 7. SECTIONS */
+.tab-pill:hover {
+    transform: translateY(-3px);
+    color: var(--primary);
+    box-shadow: var(--shadow-md);
+}
+
+.tab-pill.active {
+    background: var(--secondary);
+    /* Orange Active State */
+    color: white;
+    box-shadow: 0 4px 12px rgba(255, 109, 0, 0.3);
+}
+
+/* 8. MAIN SECTIONS */
 .section {
     padding: 4rem 0;
 }
@@ -419,408 +419,224 @@ select:focus {
 }
 
 .section-title h2 {
-    font-size: 2.2rem;
-    margin-bottom: 0.2rem;
+    font-size: 2.4rem;
+    margin-bottom: 0.5rem;
 }
 
 .section-title p {
     color: var(--text-muted);
+    font-size: 1.1rem;
 }
 
-/* 8. CATEGORY CARDS */
-.category-grid {
+/* 9. CARDS - High Elevation */
+.card {
+    background: var(--bg-surface);
+    border-radius: var(--radius-lg);
+    border: 1px solid white;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    overflow: hidden;
+    position: relative;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover);
+}
+
+.cat-card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 1.5rem;
 }
 
 .category-card {
-    background: white;
-    padding: 1.5rem;
-    border-radius: var(--radius-lg);
     text-align: center;
+    padding: 2.5rem 1.5rem;
+    background: white;
+    border-radius: var(--radius-lg);
     box-shadow: var(--shadow-sm);
-    border: 1px solid var(--border);
+    transition: all 0.3s ease;
     cursor: pointer;
-    transition: all 0.2s ease;
+    border-bottom: 4px solid transparent;
+    /* Bottom border effect */
 }
 
 .category-card:hover {
-    border-color: var(--primary);
-    transform: translateY(-3px);
+    transform: translateY(-5px);
     box-shadow: var(--shadow-md);
+    border-bottom-color: var(--secondary);
+    /* Orange highlight */
 }
 
 .category-icon {
-    font-size: 2rem;
-    margin-bottom: 1rem;
+    font-size: 2.5rem;
+    margin-bottom: 1.2rem;
     color: var(--primary);
-    background: rgba(26, 35, 126, 0.05);
-    width: 60px;
-    height: 60px;
-    line-height: 60px;
+    background: rgba(41, 98, 255, 0.05);
+    /* Light blue bg */
+    width: 70px;
+    height: 70px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 50%;
-    margin: 0 auto 1rem;
+    transition: all 0.3s ease;
 }
 
-/* 9. COURSE CARDS */
-.course-card {
-    background: white;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-.course-thumbnail {
-    height: 180px;
-    overflow: hidden;
-    position: relative;
-}
-
-.course-thumbnail img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s;
-}
-
-.course-card:hover .course-thumbnail img {
-    transform: scale(1.05);
-}
-
-.course-content {
-    padding: 1.2rem;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.course-title {
-    font-size: 1.1rem;
-    color: var(--text-main);
-    margin-bottom: 0.5rem;
-}
-
-.course-meta {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    margin-bottom: 0.5rem;
-}
-
-.course-rating {
-    color: #ffb400;
-    font-weight: 600;
-    font-size: 0.9rem;
-}
-
-.price-new {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: var(--text-main);
-}
-
-.price-old {
-    font-size: 0.9rem;
-    text-decoration: line-through;
-    color: var(--text-muted);
-}
-
-/* 10. LIVE BATCHES SECTION */
-.live-batches-section {
-    background: #e8eaf6;
-    /* Very light blue background */
-    border-radius: var(--radius-lg);
-    padding: 3rem;
-}
-
-/* 11. FOOTER */
-.footer {
-    background: #0d1b2a;
-    /* Very dark blue, professional footer */
-    color: white;
-    padding: 4rem 0 2rem;
-    margin-top: 4rem;
-}
-
-.footer-col h4 {
-    color: white;
-    margin-bottom: 1.5rem;
-}
-
-.footer-links a {
-    color: #b0bec5;
-    font-size: 0.95rem;
-}
-
-.footer-links a:hover {
-    color: white;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .hero-grid {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-
-    .hero-stats {
-        justify-content: center;
-    }
-
-    .nav-links {
-        display: none;
-    }
-
-    .hero-image {
-        display: none;
-    }
-}
-
-/* Loading */
-#loading-screen {
-    background: white;
-}
-
-/* ============================================
-   CAREERWILL-INSPIRED UI ADDITIONS
-   ============================================ */
-
-/* Hero Carousel */
-.hero-carousel {
-    position: relative;
-    width: 100%;
-    height: 450px;
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    box-shadow: var(--shadow-lg);
-    margin-bottom: 2rem;
-}
-
-.carousel-slide {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition: opacity 0.8s ease-in-out;
-    background-size: cover;
-    background-position: center;
-}
-
-.carousel-slide.active {
-    opacity: 1;
-}
-
-.carousel-content {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-    padding: 4rem 2rem 3rem;
-    color: white;
-}
-
-.carousel-content h2 {
-    color: white;
-    margin-bottom: 0.5rem;
-    font-size: 2.8rem;
-    font-weight: 700;
-}
-
-.carousel-content p {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 1.2rem;
-    max-width: 600px;
-}
-
-/* Category Tabs (Pills) */
-.category-tabs {
-    display: flex;
-    overflow-x: auto;
-    gap: 1rem;
-    padding: 0.5rem;
-    margin-bottom: 2rem;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-
-.category-tabs::-webkit-scrollbar {
-    display: none;
-}
-
-.tab-pill {
-    padding: 0.8rem 1.8rem;
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 50px;
-    font-weight: 600;
-    white-space: nowrap;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: var(--shadow-sm);
-    color: var(--text-muted);
-}
-
-.tab-pill:hover {
-    border-color: var(--primary);
-    color: var(--primary);
-    transform: translateY(-2px);
-}
-
-.tab-pill.active {
+.category-card:hover .category-icon {
     background: var(--primary);
     color: white;
-    border-color: var(--primary);
-    box-shadow: var(--shadow-md);
+    transform: rotateY(180deg);
 }
 
-/* Horizontal Scroll for Live Classes */
+/* 10. COURSE CARDS */
 .horizontal-scroll {
     display: flex;
-    gap: 1.5rem;
+    gap: 2rem;
     overflow-x: auto;
-    padding: 1rem 0.5rem 2rem;
+    padding: 1rem 1rem 3rem;
     scroll-snap-type: x mandatory;
-    scrollbar-width: none;
 }
 
 .horizontal-scroll::-webkit-scrollbar {
     display: none;
 }
 
-.horizontal-scroll .card {
-    min-width: 320px;
-    scroll-snap-align: start;
-    flex-shrink: 0;
+.course-card-wrapper {
+    min-width: 340px;
+    scroll-snap-align: center;
 }
 
-/* Faculty Section */
+.course-thumbnail {
+    position: relative;
+    height: 200px;
+    background: #e0e0e0;
+}
+
+.course-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.badge-live {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: var(--error);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.8rem;
+    animation: pulse 1.5s infinite;
+}
+
+.course-content {
+    padding: 1.5rem;
+}
+
+.course-meta {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.course-title {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.price-new {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.price-old {
+    text-decoration: line-through;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin-left: 0.5rem;
+}
+
+/* 11. FACULTY */
 .faculty-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 2rem;
-    text-align: center;
 }
 
 .faculty-card {
     background: white;
-    padding: 2.5rem 1.5rem;
+    padding: 2.5rem;
+    text-align: center;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-sm);
-    transition: transform 0.3s;
-    border: 1px solid var(--border);
-}
-
-.faculty-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-lg);
+    position: relative;
+    border-top: 5px solid var(--primary);
+    /* Accent Top */
 }
 
 .faculty-img {
-    width: 140px;
-    height: 140px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     margin: 0 auto 1.5rem;
     object-fit: cover;
-    border: 4px solid white;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border: 4px solid var(--bg-body);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 .faculty-name {
-    font-weight: 700;
-    font-size: 1.2rem;
-    margin-bottom: 0.4rem;
-    color: var(--primary);
+    color: var(--primary-dark);
+    margin-bottom: 0.3rem;
 }
 
 .faculty-subject {
     color: var(--secondary);
     font-weight: 600;
-    font-size: 0.95rem;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
 }
 
-/* App Download Section */
+/* 12. APP DOWNLOAD */
 .app-download-section {
-    background: linear-gradient(135deg, var(--primary), #303f9f);
-    border-radius: var(--radius-lg);
+    background: var(--grad-primary);
+    border-radius: var(--radius-xl);
     padding: 4rem;
     color: white;
     position: relative;
     overflow: hidden;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-}
-
-.app-content {
-    max-width: 600px;
-    position: relative;
-    z-index: 2;
-}
-
-.app-content h2 {
-    color: white;
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-}
-
-.app-content p {
-    color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 2rem;
-    font-size: 1.1rem;
-}
-
-.store-badges {
-    display: flex;
-    gap: 1rem;
+    align-items: center;
+    box-shadow: 0 20px 50px rgba(41, 98, 255, 0.3);
 }
 
 .store-badges img {
-    height: 45px;
-    cursor: pointer;
-    transition: transform 0.2s;
+    height: 50px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.store-badges img:hover {
-    transform: scale(1.05);
-}
-
-.app-mockup {
-    position: absolute;
-    right: 50px;
-    bottom: -100px;
-    width: 300px;
-    transform: rotate(-10deg);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-    border-radius: 30px;
-    z-index: 1;
-}
-
-/* Pulse Animation for Live Status */
-@keyframes pulse-red {
-    0% {
-        box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.7);
-    }
-
-    70% {
-        box-shadow: 0 0 0 10px rgba(211, 47, 47, 0);
-    }
-
-    100% {
-        box-shadow: 0 0 0 0 rgba(211, 47, 47, 0);
-    }
-}
-
-.live-indicator {
-    width: 10px;
-    height: 10px;
-    background-color: var(--accent);
-    border-radius: 50%;
-    display: inline-block;
-    animation: pulse-red 2s infinite;
-    margin-right: 5px;
+/* Loading */
+#loading-screen {
+    background: white;
+    z-index: 99999;
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
