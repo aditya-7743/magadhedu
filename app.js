@@ -470,7 +470,7 @@ function renderLoginPage() {
                 <h2 style="text-align: center; margin-bottom: 1rem;">Welcome Back!</h2>
                 
                 <div id="login-form-container">
-                    <form id="login-form" onsubmit="handleEmailLogin(event)">
+                    <form id="login-form" onsubmit="handleLogin(event)">
                         <div class="form-group" style="margin-bottom: 1rem;">
                             <label style="display: block; margin-bottom: 0.5rem;">Email</label>
                             <input type="email" id="login-email" required style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 4px;">
@@ -487,7 +487,7 @@ function renderLoginPage() {
                 </div>
 
                 <div id="signup-form-container" style="display: none;">
-                     <form id="signup-form" onsubmit="handleEmailSignup(event)">
+                     <form id="signup-form" onsubmit="handleSignup(event)">
                         <div class="form-group" style="margin-bottom: 1rem;">
                             <label style="display: block; margin-bottom: 0.5rem;">Full Name</label>
                             <input type="text" id="signup-name" required style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 4px;">
@@ -651,4 +651,278 @@ function filterCourses(categoryId, element) {
         // Fade In
         container.style.opacity = '1';
     }, 300);
+}
+
+// ==========================================
+// PHASE 7: COURSE DETAILS
+// ==========================================
+function viewCourseDetails(courseId) {
+    const content = document.getElementById('main-content');
+    const course = COURSES_DATA.find(c => c.id == courseId);
+
+    if (!course) {
+        content.innerHTML = `<div class="text-center py-5"><h2>Course Not Found</h2><a href="#courses" class="btn btn-primary">Browse Courses</a></div>`;
+        return;
+    }
+
+    content.innerHTML = `
+        <div class="course-detail-container animate-up">
+            <!-- Hero Section -->
+            <div class="course-hero" style="background: linear-gradient(135deg, var(--deep-blue), var(--primary)); color: white; padding: 4rem 2rem; border-radius: var(--radius-lg); margin-bottom: 2rem; position: relative; overflow: hidden;">
+                <div class="hero-content" style="position: relative; z-index: 2; max-width: 800px;">
+                    <span class="badge badge-${course.badgeColor}" style="margin-bottom: 1rem; display: inline-block;">${course.badge}</span>
+                    <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">${course.title}</h1>
+                    <p style="font-size: 1.2rem; opacity: 0.9; margin-bottom: 2rem;">Master ${course.category.toUpperCase()} with top educators. Live classes, PDF notes, and test series included.</p>
+                    
+                    <div class="course-meta-large" style="display: flex; gap: 2rem; margin-bottom: 2rem;">
+                        <span><i class="${course.metaIcon}"></i> ${course.metaText}</span>
+                        <span><i class="${course.subMetaIcon}"></i> ${course.subMetaText}</span>
+                        <span><i class="fas fa-language"></i> Hinglish</span>
+                    </div>
+
+                    <div class="price-section" style="display: flex; align-items: center; gap: 1.5rem;">
+                        <span style="font-size: 2.5rem; font-weight: 700;">₹${course.price}</span>
+                        <span style="font-size: 1.5rem; text-decoration: line-through; opacity: 0.7;">₹${course.originalPrice}</span>
+                        <span style="background: var(--success); color: white; padding: 0.2rem 0.8rem; border-radius: 4px; font-weight: 600;">${Math.round(((course.originalPrice - course.price) / course.originalPrice) * 100)}% OFF</span>
+                    </div>
+
+                    <button onclick="initiatePayment('${course.id}')" class="btn btn-secondary" style="margin-top: 2rem; padding: 1rem 3rem; font-size: 1.2rem; border: none;">
+                        Join Batch Now
+                    </button>
+                    ${!AppState.currentUser ? `<p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">*Login required to purchase</p>` : ''}
+                </div>
+            </div>
+
+            <!-- Content Grid -->
+            <div class="course-content-grid" style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
+                <!-- Left Column -->
+                <div class="course-main">
+                    <div class="card mb-4" style="background: white; padding: 2rem; border-radius: 12px; box-shadow: var(--shadow-sm);">
+                        <h3>What you'll learn</h3>
+                        <ul class="feature-list" style="list-style: none; padding: 0; margin-top: 1rem;">
+                            <li style="margin-bottom: 0.8rem;"><i class="fas fa-check-circle" style="color: var(--success); margin-right: 0.5rem;"></i> Complete Syllabus Coverage</li>
+                            <li style="margin-bottom: 0.8rem;"><i class="fas fa-check-circle" style="color: var(--success); margin-right: 0.5rem;"></i> Live & Recorded Classes</li>
+                            <li style="margin-bottom: 0.8rem;"><i class="fas fa-check-circle" style="color: var(--success); margin-right: 0.5rem;"></i> Printable PDF Notes</li>
+                            <li style="margin-bottom: 0.8rem;"><i class="fas fa-check-circle" style="color: var(--success); margin-right: 0.5rem;"></i> Specialized Doubt Sessions</li>
+                        </ul>
+                    </div>
+
+                    <div class="card" style="background: white; padding: 2rem; border-radius: 12px; box-shadow: var(--shadow-sm);">
+                        <h3>Course Syllabus</h3>
+                        <div class="accordion" style="margin-top: 1rem;">
+                            <div class="accordion-item" style="border-bottom: 1px solid #eee; padding: 1rem 0;">
+                                <div style="display: flex; justify-content: space-between; font-weight: 600; cursor: pointer;">
+                                    <span>Module 1: Introduction & Basics</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                            <div class="accordion-item" style="border-bottom: 1px solid #eee; padding: 1rem 0;">
+                                <div style="display: flex; justify-content: space-between; font-weight: 600; cursor: pointer;">
+                                    <span>Module 2: Core Concepts</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                            <div class="accordion-item" style="border-bottom: 1px solid #eee; padding: 1rem 0;">
+                                <div style="display: flex; justify-content: space-between; font-weight: 600; cursor: pointer;">
+                                    <span>Module 3: Advanced Problem Solving</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="course-sidebar">
+                   <div class="card" style="position: sticky; top: 2rem; background: white; padding: 2rem; border-radius: 12px; box-shadow: var(--shadow-sm);">
+                        <h3 style="margin-bottom: 1.5rem; text-align:center;">Instructor</h3>
+                        <div style="text-align: center;">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Instructor" style="width: 100px; height: 100px; border-radius: 50%; margin-bottom: 1rem; border: 3px solid var(--primary);">
+                            <h4>Aditya Sir</h4>
+                            <p class="text-muted">Maths Wizard • 10+ Years Exp</p>
+                            <p style="margin-top: 1rem; font-size: 0.9rem;">Mentored AIR 1 in SSC CGL 2024. Expert in short tricks and conceptual clarity.</p>
+                        </div>
+                   </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+// ==========================================
+// PHASE 8: AUTHENTICATION
+// ==========================================
+function handleLogin(e) { // Mock Login
+    // Prevent form submission if passed (though we use onclick mostly)
+    if (e) e.preventDefault();
+
+    const email = document.getElementById('login-email') ? document.getElementById('login-email').value : 'user@example.com';
+
+    // Simulate API Call
+    setTimeout(() => {
+        const user = {
+            id: 'u1',
+            name: 'Aditya Kumar',
+            email: email,
+            role: 'student'
+        };
+
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        AppState.currentUser = user;
+
+        // Update UI
+        initAuth();
+        window.location.hash = 'student-dashboard';
+    }, 1000);
+}
+
+function handleSignup(e) { // Mock Signup
+    if (e) e.preventDefault();
+    setTimeout(() => {
+        handleLogin(e); // Auto login after signup
+    }, 1000);
+}
+
+function logout() {
+    localStorage.removeItem('currentUser');
+    AppState.currentUser = null;
+    initAuth();
+    window.location.hash = 'home';
+}
+
+function initAuth() {
+    const savedUser = localStorage.getItem('currentUser');
+    if (savedUser) {
+        AppState.currentUser = JSON.parse(savedUser);
+    }
+
+    const navAuth = document.getElementById('nav-auth');
+    if (navAuth) {
+        if (AppState.currentUser) {
+            navAuth.innerHTML = `
+                <button onclick="window.location.hash='student-dashboard'" class="btn btn-secondary">
+                    <i class="fas fa-user-circle"></i> Dashboard
+                </button>
+                <button onclick="logout()" class="btn btn-outline" style="margin-left: 0.5rem; color: white; border: 1px solid rgba(255,255,255,0.3);">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            `;
+        } else {
+            navAuth.innerHTML = `
+                <a href="#login" class="nav-link">Login</a>
+                <a href="#signup" class="btn btn-secondary">Sign Up</a>
+            `;
+        }
+    }
+}
+
+// ==========================================
+// PHASE 9: STUDENT DASHBOARD
+// ==========================================
+function renderStudentDashboard() {
+    const content = document.getElementById('main-content');
+    const user = AppState.currentUser;
+    if (!user) { window.location.hash = 'login'; return; }
+
+    const enrolledCourses = AppState.enrolledCourses.length > 0 ? AppState.enrolledCourses : [];
+
+    // Mock enrolled courses if empty for demo
+    const displayCourses = enrolledCourses.length > 0 ? enrolledCourses : [COURSES_DATA[0]];
+
+    content.innerHTML = `
+        <div class="dashboard-container animate-up">
+            <div class="dashboard-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <div>
+                    <h1>Welcome back, ${user.name.split(' ')[0]}! 👋</h1>
+                    <p class="text-muted">You have 2 upcoming classes today.</p>
+                </div>
+                <div class="stats-card" style="background: white; padding: 1rem 2rem; border-radius: 12px; box-shadow: var(--shadow-sm); display: flex; gap: 2rem;">
+                    <div style="text-align: center;">
+                        <h3 style="color: var(--primary); margin: 0;">85%</h3>
+                        <span style="font-size: 0.9rem;">Attendance</span>
+                    </div>
+                    <div style="text-align: center;">
+                        <h3 style="color: var(--secondary); margin: 0;">12</h3>
+                        <span style="font-size: 0.9rem;">Tests Taken</span>
+                    </div>
+                </div>
+            </div>
+
+            <h2 style="margin-bottom: 1.5rem;">My Courses</h2>
+            <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                ${displayCourses.map(course => `
+                    <div class="card course-card-wrapper">
+                        <div class="course-thumbnail">
+                            <span class="badge-live">LIVE NOW</span>
+                            <img src="${course.image}" alt="${course.title}">
+                        </div>
+                        <div class="course-content">
+                            <h3 class="course-title">${course.title}</h3>
+                            <div class="progress-bar" style="background: #eee; height: 8px; border-radius: 4px; margin: 1rem 0; overflow: hidden;">
+                                <div style="background: var(--success); width: 45%; height: 100%;"></div>
+                            </div>
+                            <div class="flex-between" style="margin-top: auto;">
+                                <span style="font-size: 0.9rem; color: var(--text-muted);">45% Completed</span>
+                                <button class="btn btn-primary" style="padding: 0.5rem 1rem;">Resume</button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+}
+
+// ==========================================
+// PHASE 10: PAYMENTS (MOCK)
+// ==========================================
+function initiatePayment(courseId) {
+    if (!AppState.currentUser) {
+        alert("Please login to purchase courses.");
+        window.location.hash = 'login';
+        return;
+    }
+
+    const course = COURSES_DATA.find(c => c.id == courseId);
+
+    // Show Mock Payment Modal
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; z-index: 1000;
+    `;
+    modal.innerHTML = `
+        <div style="background: white; padding: 2rem; border-radius: 12px; width: 400px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+            <h2 style="margin-bottom: 1rem;">Payment Gateway</h2>
+            <p>Processing payment for <strong>${course.title}</strong></p>
+            <div style="margin: 2rem 0; font-size: 2rem; color: var(--primary);">
+                <i class="fas fa-spinner fa-spin"></i>
+            </div>
+            <p style="color: var(--text-muted);">Please do not refresh the page...</p>
+        </div>
+    `;
+    document.body.appendChild(modal);
+
+    // Simulate Success
+    setTimeout(() => {
+        modal.innerHTML = `
+             <div style="background: white; padding: 2rem; border-radius: 12px; width: 400px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                <div style="font-size: 4rem; color: var(--success); margin-bottom: 1rem;">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2 style="margin-bottom: 1rem;">Payment Successful!</h2>
+                <p>You have successfully enrolled in the course.</p>
+                <p style="margin-top: 1rem; color: var(--text-muted);">Redirecting to dashboard...</p>
+            </div>
+        `;
+
+        // Add to enrolled courses
+        AppState.enrolledCourses.push(course);
+
+        // Redirect
+        setTimeout(() => {
+            document.body.removeChild(modal);
+            window.location.hash = 'student-dashboard';
+        }, 2000);
+    }, 2000);
 }
